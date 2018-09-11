@@ -16,7 +16,7 @@
           <context:component-scan base-package="com.demo">   
   				<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />   
 		  </context:component-scan>  
-          
+		  
 	      <!-- jdbc配置文件 -->    
 	      <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
 	         <property name="locations">  
@@ -65,9 +65,11 @@
 	        <property name="configLocation" value="classpath:mybatis-config.xml" />  
 	        <property name="mapperLocations" value="classpath:com/demo/dao/*.xml" />    
     	</bean> 
-    	
  	     <!-- 自动扫描了所有mapper接口文件 -->  
     	 <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"> 
          	<property name="basePackage"  value="com.demo.dao" /> 
          </bean>
+         
+         
+
 </beans>

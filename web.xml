@@ -8,9 +8,13 @@
   	<context-param>
     	<param-name>contextConfigLocation</param-name>
         <param-value>classpath:applicationContext.xml,
-        							 classpath:spring-shiro.xml
+        						classpath:spring-shiro.xml,
+        						classpath:activiti.cfg.xml
         </param-value>
     </context-param>
+    <listener>
+    	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
     <context-param>  
         <param-name>log4jConfigLocation</param-name>  
         <param-value>classpath:log4j.properties</param-value>  
@@ -18,9 +22,6 @@
     <listener>  
         <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>  
     </listener> 
-	<listener>
-    	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
     <!-- 配置Spring提供的字符编码过滤器 -->
     <filter>
         <filter-name>SpringCharacterEncodingFilter</filter-name>
@@ -87,7 +88,7 @@
         <init-param>  
             <!-- 缺省false,生命周期由SpringApplicationContext管理,true表示由ServletContainer管理 -->  
             <param-name>targetFilterLifecycle</param-name>  
-            <param-value>false</param-value>  
+            <param-value>true</param-value>  
         </init-param>  
     </filter>  
     <filter-mapping>  
