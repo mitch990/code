@@ -38,11 +38,7 @@
         <!-- 权限配置 -->  
         <property name="filterChainDefinitions">    
             <value>
-	            <!-- 对静态资源设置匿名访问 -->
-	            /resources/** = anon
-	            /login = anon
-	            <!-- /** = authc 所有url都必须认证通过才可以访问-->
-	            /** = authc
+	            
        		</value>
         </property>    
     </bean>  
