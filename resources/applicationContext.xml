@@ -11,12 +11,11 @@
 	      http://www.springframework.org/schema/context/spring-context-4.3.xsd  
 	      http://www.springframework.org/schema/aop   
 	      http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
-           
-           <!-- 自动扫描注解的bean -->
+	      
+          <!-- 自动扫描注解的bean -->
           <context:component-scan base-package="com.demo">   
   				<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />   
 		  </context:component-scan>  
-		  
 	      <!-- jdbc配置文件 -->    
 	      <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
 	         <property name="locations">  
@@ -28,48 +27,53 @@
 	     </bean>
 	     <!-- datasource -->  
 	     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
-	     		 <property name="driverClassName" value="${jdbc.driver}"/>
-	             <property name="url" value="${jdbc.url}" />
-	             <property name="username" value="${jdbc.username}" />
-	             <property name="password" value="${jdbc.password}" />
+	     	<property name="driverClassName" value="${jdbc.driver}"/>
+	        <property name="url" value="${jdbc.url}" />
+	        <property name="username" value="${jdbc.username}" />
+	        <property name="password" value="${jdbc.password}" />
 	             
-	             <property name="initialSize" value="2" />
-	             <property name="minIdle" value="2" /> 
-	             <property name="maxActive" value="5" />
+	        <property name="initialSize" value="2" />
+	        <property name="minIdle" value="2" /> 
+	        <property name="maxActive" value="5" />
 	             
-	             <!-- 配置获取连接等待超时的时间 -->
-			      <property name="maxWait" value="60000" />
+	        <!-- 配置获取连接等待超时的时间 -->
+			<property name="maxWait" value="60000" />
 			   
-			      <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
-			      <property name="timeBetweenEvictionRunsMillis" value="60000" />
+			<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+			<property name="timeBetweenEvictionRunsMillis" value="60000" />
 			   
-			      <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
-			      <property name="minEvictableIdleTimeMillis" value="300000" />
+			<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+			<property name="minEvictableIdleTimeMillis" value="300000" />
 			    
-			      <property name="validationQuery" value="SELECT 'x'" />
-			      <property name="testWhileIdle" value="true" />
-			      <property name="testOnBorrow" value="false" />
-			      <property name="testOnReturn" value="false" />
+			<property name="validationQuery" value="SELECT 'x'" />
+			<property name="testWhileIdle" value="true" />
+			<property name="testOnBorrow" value="false" />
+			<property name="testOnReturn" value="false" />
 			   
-			      <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
-			      <property name="poolPreparedStatements" value="false" />
-			      <property name="maxPoolPreparedStatementPerConnectionSize" value="-1" />
+			<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+			<property name="poolPreparedStatements" value="false" />
+			<property name="maxPoolPreparedStatementPerConnectionSize" value="-1" />
 			   
-			      <!-- 配置监控统计拦截的filters -->
-			      <property name="filters" value="stat" />
+			<!-- 配置监控统计拦截的filters -->
+		 	<property name="filters" value="stat" />
 	     </bean>
 	    
 	    <!-- 配置Mybatis的文件 ，mapperLocations配置**Mapper.xml文件位置，configLocation配置mybatis-config文件位置-->  
     	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
-	        <property name="dataSource" ref="dataSource" />
+	    	<property name="dataSource" ref="dataSource" />
 	        <property name="configLocation" value="classpath:mybatis-config.xml" />  
 	        <property name="mapperLocations" value="classpath:com/demo/dao/*.xml" />    
     	</bean> 
- 	     <!-- 自动扫描了所有mapper接口文件 -->  
-    	 <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"> 
-         	<property name="basePackage"  value="com.demo.dao" /> 
-         </bean>
+ 	    <!-- 自动扫描了所有mapper接口文件 -->  
+    	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"> 
+        	<property name="basePackage"  value="com.demo.dao" /> 
+        </bean>
          
-         
-
+        <!-- spring shiro ehcache-->
+        <bean id="ehcacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        	<property name="configLocation" value="classpath:ehcache.xml" />
+		</bean>
+	    <bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+			<property name="cacheManager" ref="ehcacheManagerFactory"  />
+		</bean>
 </beans>

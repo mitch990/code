@@ -7,10 +7,7 @@
   	<!-- spring  log4j-->
   	<context-param>
     	<param-name>contextConfigLocation</param-name>
-        <param-value>classpath:applicationContext.xml,
-        						classpath:spring-shiro.xml,
-        						classpath:activiti.cfg.xml
-        </param-value>
+        <param-value>classpath:applicationContext*.xml</param-value>
     </context-param>
     <listener>
     	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -21,7 +18,22 @@
     </context-param>
     <listener>  
         <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>  
-    </listener> 
+    </listener>
+    <!-- Shiro过滤器,过滤所有请求 -->  
+    <!-- filter-name对应applicationContext.xml中定义的bean id -->  
+    <filter>  
+        <filter-name>shiroFilter</filter-name>  
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>  
+        <init-param>  
+            <!-- 缺省false,生命周期由SpringApplicationContext管理,true表示由ServletContainer管理 -->  
+            <param-name>targetFilterLifecycle</param-name>  
+            <param-value>true</param-value>  
+        </init-param> 
+    </filter>  
+    <filter-mapping>  
+        <filter-name>shiroFilter</filter-name>  
+        <url-pattern>/*</url-pattern>  
+    </filter-mapping>  
     <!-- 配置Spring提供的字符编码过滤器 -->
     <filter>
         <filter-name>SpringCharacterEncodingFilter</filter-name>
@@ -80,21 +92,6 @@
 	   	<!--2、拦截/，例如：/user/add,可以实现现在很流行的REST风格。很多互联网类型的应用很喜欢这种风格的URL。弊端：会导致静态文件（jpg,js,css）被拦截后不能正常显示。 -->  
 	    <url-pattern>/</url-pattern> <!--会拦截URL中带“/”的请求。-->  
 	</servlet-mapping>
-	<!-- Shiro过滤器,过滤所有请求 -->  
-    <!-- filter-name对应applicationContext.xml中定义的bean id -->  
-    <filter>  
-        <filter-name>shiroFilter</filter-name>  
-        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>  
-        <init-param>  
-            <!-- 缺省false,生命周期由SpringApplicationContext管理,true表示由ServletContainer管理 -->  
-            <param-name>targetFilterLifecycle</param-name>  
-            <param-value>true</param-value>  
-        </init-param>  
-    </filter>  
-    <filter-mapping>  
-        <filter-name>shiroFilter</filter-name>  
-        <url-pattern>/*</url-pattern>  
-    </filter-mapping>  
 	<servlet-mapping>                       
     	<servlet-name>default</servlet-name>
     	<url-pattern>*.js</url-pattern>
