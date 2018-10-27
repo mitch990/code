@@ -167,11 +167,8 @@
 		    <version>1.7.25</version>
 	</dependency>
   	</dependencies>
-  
-<build>
-       <!-- 自动部署到tomcat -->
-    <defaultGoal>package</defaultGoal>
-    <plugins>
+  <build>
+  	<plugins>
         <plugin>
             <groupId>org.apache.tomcat.maven</groupId>
             <artifactId>tomcat7-maven-plugin</artifactId>
@@ -180,11 +177,12 @@
             <url>http://127.0.0.1:8080/manager/text</url>
             <username>tomcat7</username>
             <password>tomcat7</password>
-            <path>/workPlatform-parent</path>
+            <path>/workPlatform</path>
             </configuration>
         </plugin>
     </plugins>
- 	</build>
+  </build>
+  
   <!-- 指定maven编译方式为jdk1.8版本 -->
   <profiles>
 		<profile>

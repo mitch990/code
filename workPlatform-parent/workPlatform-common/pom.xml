@@ -7,14 +7,17 @@
     <artifactId>workPlatform-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>com.workPlatform</groupId>
+  
   <artifactId>workPlatform-common</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  
   <name>workPlatform-common</name>
   <url>http://maven.apache.org</url>
+  
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+  
   <dependencies>
     <dependency>
       <groupId>junit</groupId>

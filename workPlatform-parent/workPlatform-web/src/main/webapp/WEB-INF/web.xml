@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"  
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+         http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+<display-name>workPlatform-web</display-name>
+  	<!-- spring  log4j-->
+  	<context-param>
+    	<param-name>contextConfigLocation</param-name>
+        <param-value>classpath:applicationContext*.xml</param-value>
+    </context-param>
+    <listener>  
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>  
+    </listener>  
+    <listener>
+    	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <context-param>  
+        <param-name>log4jConfigLocation</param-name>  
+        <param-value>classpath:log4j.properties</param-value>  
+    </context-param>
+    <listener>  
+        <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>  
+    </listener>
+    <!-- 配置Spring提供的字符编码过滤器 -->
+    <filter>
+        <filter-name>SpringCharacterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>SpringCharacterEncodingFilter</filter-name>
+        <url-pattern>/</url-pattern>
+    </filter-mapping>
+    <!-- Shiro过滤器,过滤所有请求 -->  
+    <!-- filter-name对应applicationContext.xml中定义的bean id -->
+    <filter>  
+        <filter-name>shiroFilter</filter-name>  
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>  
+        <init-param>  
+            <!-- 缺省false,生命周期由SpringApplicationContext管理,true表示由ServletContainer管理 -->  
+            <param-name>targetFilterLifecycle</param-name>  
+            <param-value>true</param-value>  
+        </init-param> 
+    </filter>  
+    <filter-mapping>  
+        <filter-name>shiroFilter</filter-name>  
+        <url-pattern>/*</url-pattern>  
+    </filter-mapping>  
+    <!-- druid -->
+	<servlet>  
+    <servlet-name>DruidStatView</servlet-name>  
+    <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>  
+    <init-param>  
+        <!-- 允许清空统计数据 -->  
+        <param-name>resetEnable</param-name>  
+        <param-value>true</param-value>  
+    </init-param>  
+    <init-param>  
+        <!-- 用户名 -->  
+        <param-name>loginUsername</param-name>  
+        <param-value>druid</param-value>  
+    </init-param>  
+    <init-param>  
+        <!-- 密码 -->  
+        <param-name>loginPassword</param-name>  
+        <param-value>druid</param-value>  
+    </init-param>  
+	</servlet>  
+	<servlet-mapping>  
+	    <servlet-name>DruidStatView</servlet-name>  
+	    <url-pattern>/druid/*</url-pattern>  
+	</servlet-mapping>
+	<servlet-mapping>  
+    	<servlet-name>default</servlet-name> 
+   		<url-pattern>*.htm</url-pattern>    
+	</servlet-mapping>   
+	<servlet-mapping>  
+    	<servlet-name>default</servlet-name> 
+   		<url-pattern>*.js</url-pattern>    
+	</servlet-mapping>
+	<servlet-mapping>  
+    	<servlet-name>default</servlet-name> 
+   		<url-pattern>*.css</url-pattern>    
+	</servlet-mapping>
+	<!-- spring mvc -->
+	<servlet>
+		<servlet-name>dispatcher</servlet-name>
+	    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>  
+	    <init-param>  
+	    	<param-name>contextConfigLocation</param-name>  
+	        <param-value>classpath:dispatcher-servlet.xml</param-value>  
+	    </init-param>  
+	    	<load-on-startup>1</load-on-startup>
+	</servlet>  
+	<servlet-mapping>  
+		<servlet-name>dispatcher</servlet-name>  
+	    <!--Servlet拦截匹配规则可以自已定义，当映射为@RequestMapping("/user/add")时，为例,拦截哪种URL合适？-->  
+	    <!--1、拦截*.do、*.htm， 例如：/user/add.do,这是最传统的方式，最简单也最实用。不会导致静态文件（jpg,js,css）被拦截。-->  
+	   	<!--2、拦截/，例如：/user/add,可以实现现在很流行的REST风格。很多互联网类型的应用很喜欢这种风格的URL。弊端：会导致静态文件（jpg,js,css）被拦截后不能正常显示。 -->  
+	    <url-pattern>/</url-pattern> <!--会拦截URL中带“/”的请求。-->  
+	</servlet-mapping>
+</web-app>

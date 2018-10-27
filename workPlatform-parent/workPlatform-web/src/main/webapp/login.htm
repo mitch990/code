@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>登陆</title>
+        <link rel="stylesheet" href="javaScript/css/layui.css">
+        <script src="javaScript/layui.js"></script>
+		<script type="text/javascript">
+    		layui.use(['form'], function () {
+       		var form = layui.form(), 
+       		$ = layui.jquery;
+    		});
+	</script>
+    </head>
+    <body>
+    	<br/><br/>
+        <div class="login-main">
+    	<form class="layui-form" action="loginShiro" method="post">
+       	<div class="layui-input-inline">
+            <input type="text" name="username" required  lay-verify="required" placeholder="username" autocomplete="off" class="layui-input">
+        </div>
+        <br/><br/>
+        <div class="layui-input-inline">
+            <input type="password" name="password" required  lay-verify="required" placeholder="password" autocomplete="off" class="layui-input">
+        </div>
+        <br/><br/>
+        <div class="layui-input-inline login-btn">
+            <button type="submit" class="layui-btn">login</button>
+        </div>	
+    	</form>
+		</div>
+    </body>
+</html>

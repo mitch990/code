@@ -32,5 +32,5 @@
 			 	<!-- <property name="sessionMode" value="native"/> -->
 			</bean>
 			<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
-			<bean id="myRealm" class="com.workPlatform-web.service.LoginRealm" />
+			<bean id="myRealm" class="com.workPlatform.core.service.LoginRealm" />
 </beans>
