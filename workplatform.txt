@@ -1,0 +1,17 @@
+用户表	t_user(1)
+		 >用户角色表 t_user_role(4)
+角色表	t_role(2)
+			>角色权限表 t_role_authorities(5)
+权限表	t_authorities(3)
+
+
+
+用户表	t_user	-> 用户组表 t_user_group(6)
+					   > 组表 t_group(8)
+角色表	t_role	-> 角色组表 t_role_group(7)
+
+
+
+权限表	t_authorities ->权限菜单表 t_author_menu(9) ->菜单表 t_menu(11)
+						     
+权限表	t_authorities ->权限元素表 t_author_element(10) ->页面元素表 t_element(12)
