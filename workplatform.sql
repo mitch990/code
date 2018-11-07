@@ -48,13 +48,15 @@ DROP TABLE IF EXISTS `t_authorities`;
 
 CREATE TABLE `t_authorities` (
   `a_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '权限表id_PK',
-  `a_aname` varchar(32) NOT NULL COMMENT '权限名称',
+  `a_name` varchar(32) NOT NULL COMMENT '权限名称',
   `a_type` int(11) NOT NULL COMMENT '权限类型',
   `a_remark` varchar(256) DEFAULT NULL COMMENT '权限备注',
   PRIMARY KEY (`a_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_authorities` */
+
+insert  into `t_authorities`(`a_id`,`a_name`,`a_type`,`a_remark`) values (1,'menu',0,'菜单'),(2,'element',1,'页面元素');
 
 /*Table structure for table `t_element` */
 
@@ -109,9 +111,11 @@ CREATE TABLE `t_role` (
   `r_rolename` varchar(32) NOT NULL COMMENT '角色名称',
   `r_remark` varchar(256) DEFAULT NULL COMMENT '角色备注',
   PRIMARY KEY (`r_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_role` */
+
+insert  into `t_role`(`r_id`,`r_parentid`,`r_rolename`,`r_remark`) values (1,0,'admin','admin'),(2,1,'系统管理员','系统管理员'),(3,1,'管理员','管理员');
 
 /*Table structure for table `t_role_author` */
 
@@ -162,6 +166,8 @@ CREATE TABLE `t_user` (
 
 /*Data for the table `t_user` */
 
+insert  into `t_user`(`u_id`,`u_uid`,`u_account`,`u_password`,`u_name`,`u_gender`,`u_mobile`,`u_wechat`,`u_email`,`u_createtime`,`u_lasttime`,`u_count`,`u_remark`) values (1,1,'a001','abc','tom',1,'13045678900','13045678900','13045678900@000.org','2018-11-07 00:00:00','2018-11-07 00:00:00',NULL,NULL);
+
 /*Table structure for table `t_user_group` */
 
 DROP TABLE IF EXISTS `t_user_group`;
@@ -184,9 +190,11 @@ CREATE TABLE `t_user_role` (
   `ur_user_id` bigint(20) NOT NULL COMMENT '用户id',
   `ur_role_id` bigint(20) NOT NULL COMMENT '角色id',
   PRIMARY KEY (`ur_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `t_user_role` */
+
+insert  into `t_user_role`(`ur_id`,`ur_user_id`,`ur_role_id`) values (1,1,1);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
