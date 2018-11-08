@@ -5,8 +5,10 @@
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>layui</title>
+  <title>workPlatform</title>
   <link rel="stylesheet" href="javaScript/css/layui.css">
+  <script src="javaScript/layui.js"></script>
+  <script src="js/main.js"></script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -72,13 +74,7 @@
     © layui.com - 底部固定区域
   </div>
 </div>
-<script src="javaScript/layui.js"></script>
-<script>
-//JavaScript代码区域
-layui.use('element', function(){
-  var element = layui.element;
-});
-</script>
+
 </body>
 </html>
 
