@@ -15,3 +15,51 @@
 权限表	t_authorities ->权限菜单表 t_author_menu(9) ->菜单表 t_menu(11)
 						     
 权限表	t_authorities ->权限元素表 t_author_element(10) ->页面元素表 t_element(12)
+
+
+组表 t_group
+			>组权限表 t_group_author(13)
+权限表	t_authorities
+
+
+
+
+
+
+
+
+
+
+/**根据用户ID查询个人权限(左侧菜单)**/
+SELECT t_user_role.ur_user_id,t_menu.m_name,t_menu.m_parent,t_menu.m_URL,t_menu.m_remark 
+FROM t_user_role,t_role_author,t_author_menu,t_menu 
+WHERE 1=1 
+AND t_user_role.ur_user_id=1
+AND t_user_role.ur_role_id=t_role_author.ra_role_id 
+AND t_role_author.ra_author_id=t_author_menu.am_author_id 
+AND t_author_menu.am_menu_id=t_menu.m_id
+AND t_menu.m_type=0
+/**根据用户ID查询个人权限(顶部菜单)**/
+SELECT t_user_role.ur_user_id,t_menu.m_name,t_menu.m_parent,t_menu.m_URL,t_menu.m_remark 
+FROM t_user_role,t_role_author,t_author_menu,t_menu 
+WHERE 1=1 
+AND t_user_role.ur_user_id=1
+AND t_user_role.ur_role_id=t_role_author.ra_role_id 
+AND t_role_author.ra_author_id=t_author_menu.am_author_id 
+AND t_author_menu.am_menu_id=t_menu.m_id
+AND t_menu.m_type=-1
+/**根据用户ID查询组权限**/
+SELECT t_user_group.ug_id,t_user_group.ug_user_id,t_user_group.ug_group_id,t_menu.m_name,t_menu.m_type,t_menu.m_parent,t_menu.m_URL,t_menu.m_remark 
+FROM t_user_group,t_group_author,t_author_menu,t_menu
+WHERE t_user_group.ug_user_id=1
+AND t_user_group.ug_group_id=t_group_author.ga_group_id
+AND t_group_author.ga_author_id=t_author_menu.am_author_id
+AND t_author_menu.am_menu_id=t_menu.m_id
+/**所有组下拥有的用户**/
+SELECT t_group.g_id,t_group.g_groupname,t_user.u_id,t_user.u_uid,t_user.u_account,t_user.u_name
+FROM t_group,t_user_group,t_user
+WHERE t_group.g_id=t_user_group.ug_group_id
+AND t_user_group.ug_user_id=t_user.u_id
+
+
+
