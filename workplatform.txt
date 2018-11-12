@@ -84,5 +84,18 @@ UPDATE t_user SET u_mobile='1230' WHERE u_uid=1
 //插入用户角色
 INSERT INTO t_user_role VALUES (),(),(),
 
+//删除用户以及用户拥有的角色
+DELIMITER $$
+
+CREATE
+    PROCEDURE `workplatform`.`delete_user_and _userrole`(
+	IN _u_id BIGINT
+    )
+    BEGIN
+	DELETE FROM t_user WHERE u_id=_u_id;
+	DELETE FROM t_user_role WHERE ur_user_id IN (_u_id);
+    END$$
+
+DELIMITER ;
 
 
