@@ -62,4 +62,27 @@ WHERE t_group.g_id=t_user_group.ug_group_id
 AND t_user_group.ug_user_id=t_user.u_id
 
 
+/**用户操作**/
+//全部用户
+SELECT * FROM t_user ORDER BY u_id DESC
+//u_uid
+SELECT * FROM t_user WHERE u_uid=1
+//账号
+SELECT * FROM t_user WHERE u_account='a001'
+//名字
+SELECT * FROM t_user WHERE u_name LIKE '%tom%'
+//电话
+SELECT * FROM t_user WHERE u_mobile LIKE '%130456%'
+//微信
+SELECT * FROM t_user WHERE u_wechat LIKE '%130456%'
+//插入用户
+INSERT INTO t_user VALUES ()
+//根据u_uid删除用户
+DELETE FROM t_user WHERE u_uid=
+//根据u_uid更新用户电话
+UPDATE t_user SET u_mobile='1230' WHERE u_uid=1
+//插入用户角色
+INSERT INTO t_user_role VALUES (),(),(),
+
+
 
