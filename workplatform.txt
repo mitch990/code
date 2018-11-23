@@ -99,3 +99,39 @@ CREATE
 DELIMITER ;
 
 
+---------------------------------------------------------------------
+
+1./WEB-INF/jsp文件夹下一个jsp对应/js文件夹下一个js文件
+2.一个请求对应一个controller-service-dao
+3.返回格式JSON
+4.通用类放在common模块下比如分页,加密之类。
+
+5.ajax请求方式(login页面到主页面用普通post方式，不用ajax)
+如果需要在页面初始化完成后加载数据，那么直接在layui.use中发起ajax请求即可
+layui.use相当于jquery.ready();即dom树加载完成后执行的函数。
+
+layui.use(['form'], function () {
+       		var form=layui.form;
+       		form.on('submit(loginbtn)',function(data){
+       			layui.use('jquery',function(){
+       				var $=layui.$;
+       				var url='\loginShiro';
+       				var datas=data.field;
+       				console.info(datas);
+       				$.ajax({
+       					type:'post',
+       					url:url,
+       					dataType:'JSON',
+       					data:datas,
+       					success:function(){},
+       					error:function(){}
+       				});
+       			});
+       			return false;
+       		});
+       		
+    		});
+
+6.注意补充一点，如果需要连接其他数据库，即修改/resources/jdbc.properties	中的jdbc.url字符串
+那么需要对parent模块重新clean install，否则会出现部署后仍然执行旧的查询sql。
+7.目前去掉了缓存，刷新即执行，可从druid中查看。
